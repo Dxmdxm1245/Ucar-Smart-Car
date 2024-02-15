@@ -1,0 +1,8 @@
+prefix=/home/ucar/ucar_ws/devel
+
+Name: ucar_description
+Description: Description of ucar_description
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ucar/ucar_ws/devel/lib 
+Requires: 
