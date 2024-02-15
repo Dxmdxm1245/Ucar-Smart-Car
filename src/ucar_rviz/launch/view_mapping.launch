@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_rviz" default="true" />
+
+
+    <!-- gmapping rviz-->
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ucar_rviz)/rviz/gmapping.rviz" if="$(arg use_rviz)"/>
+
+</launch>

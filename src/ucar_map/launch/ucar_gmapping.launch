@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="base_frame" default="base_link" />
+    <arg name="odom_frame" default="odom" />
+
+    <!-- gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" output="screen" >
+        <rosparam file="$(find ucar_map)/param/gmapping.yaml" command="load" />
+        <remap from="scan" to="/scan"/>
+	<param name="odom_frame" value="$(arg odom_frame)"/>
+	<param name="base_frame" value="$(arg base_frame)"/>
+    </node>
+      <!-- <node name="rviz" pkg="rviz" type="rviz" aegs="-d $(find ucar_map)/rviz/gmapping.rviz" /> -->
+
+</launch>

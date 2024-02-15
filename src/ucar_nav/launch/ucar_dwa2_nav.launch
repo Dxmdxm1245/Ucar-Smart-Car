@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+
+   
+  <include file="$(find ucar_controller)/launch/base_driver.launch" > </include>
+
+  <include file="$(find ydlidar)/launch/ydlidar.launch" > </include>
+
+      <!-- Run the map server -->
+
+      <node name="map_server" pkg="map_server" type="map_server" args="$(find ucar_nav)/maps/racetrack.yaml" output="screen">
+   <param name="frame_id" value="map" />
+  </node> 
+
+
+
+    <!-- Localization -->
+    <!-- AMCL -->
+
+
+    <include file="$(find ucar_nav)/launch/config/amcl/amcl.launch" > </include>
+
+    
+    <!--  Navigation -->
+
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/move_base_params.yaml" command="load" />
+        <rosparam file="$(find ucar_nav)/launch/config/dwa2/dwa_local_planner_params.yaml" command="load" />
+    </node>
+    
+    <!--  Visualisation -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tianracer_rviz)/rviz_cfg/teb_navigation.rviz" if="$(arg use_rviz)" /> -->
+
+</launch>
